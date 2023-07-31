@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <style>
+    .container {
+      width: 980px;
+      margin: 0 auto;
+    }
+
+    .col-12 {
+      width: 300px;
+      height: 50px;
+      margin: 10px;
+    }
+
+    .icon_cham {
+      animation: ChangeColor 5s linear infinite;
+    }
+
+
+    @keyframes ChangeColor {
+      0% {
+        background-color: red;
+      }
+
+      25% {
+        background-color: orange;
+      }
+
+      50% {
+        background-color: green;
+      }
+
+      75% {
+        background-color: blue;
+      }
+
+      100% {
+        background-color: violet;
+      }
+    }
+  </style>
+</head>
+
+<body class="container">
+  <header>
+    <div class="row text-center">
+      <div class="col-6 " style="padding-top: 10px;">
+        <i class="fa-solid fa-heart float-right"></i>
+      </div>
+      <div class="col-6">
+        <h1 class=" float-left" style="font-size: 18px; padding-top: 10px;">Kayda69</h1>
+      </div>
+    </div>
+  </header>
+  <hr>
+  <nav class="navbar navbar-expand navbar-light bg-f">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
+          <img src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-audi-inkythuatso-01-11-13-45-50.jpg" alt=""
+            style="width: 70px; height: 70px;">
+        </a>
+      </li>
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </nav>
+  <hr>
+  <div class="row" style="height: 700px;">
+    <article class="col-7" style="border-right: 1px solid grey; width:400px;
+    height:1000px;
+    overflow-x:auto;
+    overflow-y:auto;;">
+    </h1>
+    <% for(var i = 0;i<data.length; i++){ %>
+
+      <% for(var j = 0;j<data[i].img.length; j++){ %>
+        <img src="/<%=data[i].img[j].path%>" width="150px" height="200px"/>  
+      <%}%>
+  
+      <h1>
+        <%= data[i].name %>  
+      </h1>
+      <h2>
+       Giá xe: <%= data[i].price %>  
+      </h2>
+      <h3>
+       Ngày nhập:  <%= data[i].date %>  
+      </h3>
+      <a href="/remove/?id=<%= data[i]._id %>">Xoá</a>
+      <button value="<%=data[i]._id.toString()%>" id="editBtn" style="color: white; background-color: blue; border-radius: 5px;" onclick="toggle(this)" >Sửa</button>
+      <div hidden="hidden" id="<%=data[i]._id.toString()%>" class="edit">
+        <h1>Sửa thông tin xe</h1>
+        <form action="/updateItem" style="width: 350px;margin-top:10px;" method="post" enctype="multipart/form-data">
+          <input type="text" name="carId" id="" class="col-12" value="<%=data[i]._id.toString()%>" >
+          <input type="text" name="tenXe" id="" class="col-12" value="<%=data[i].name%>">
+          <input type="number" name="giaTien" id="" class="col-12" value="<%=data[i].price%>">
+          <input type="date" name="namSX" id="" class="col-12" value="<%=data[i].date%>">
+          <input type="file" name="carIMG" id="" class="col-12" multiple accept=".jpg">
+          <button type="submit" class="col-12 "
+            style="background-color: rgb(255, 0, 34);color: white;font-size: 25px;font-weight: bold;border-color: white;">Edit</button>
+        </form>
+      </div>
+    <p>------------------------------------------------------------</p>
+
+    <%}%>
+ 
+  
+
+    </article>
+    <aside class="col-5">
+      <div class="column" style="align-self: center;">
+        <form action="/uploads" style="width: 350px;margin-top: 100px;" method="post" enctype="multipart/form-data">
+          <input type="text" name="tenXe" id="" class="col-12" placeholder="Nhập tên xe ...">
+          <input type="number" name="giaTien" id="" class="col-12" placeholder="Nhập giá xe...">
+          <input type="date" name="namSX" id="" class="col-12">
+          <input type="file" name="carIMG" id="" class="col-12" multiple accept=".jpg">
+          <button type="submit" class="col-12 "
+            style="background-color: rgb(255, 0, 0);color: white;font-size: 25px;font-weight: bold;border-color: white;">Submit</button>
+        </form>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+<script>
+  let toggle = function(button){
+    let editDiv = document.getElementById(button.value);
+    let hidden = editDiv.getAttribute("hidden");
+      if (hidden) {
+       editDiv.removeAttribute("hidden");
+       button.innerText = "Huỷ";
+    }
+   else{
+      editDiv.setAttribute("hidden", "hidden")
+      button.innerText = "Sửa";
+    }
+  }
+</script>
+</body>
+
+</html>
